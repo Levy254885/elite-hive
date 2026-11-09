@@ -1,5 +1,4 @@
 # Elite Hive Kenya Website
-
 Next.js 15 (App Router) and TypeScript. Plain CSS design system, Lucide icons.
 Firebase (Authentication and Firestore) and Cloudinary power the newsroom and its admin dashboard.
 
