@@ -1,9 +1,0 @@
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // All reads and writes go through the server (Firebase Admin), never directly from browsers.
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
