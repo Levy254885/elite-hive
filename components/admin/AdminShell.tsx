@@ -48,7 +48,8 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       <div className="adm-bar">
         <strong>Elite Hive admin</strong>
         <nav className="adm-nav" aria-label="Admin">
-          <Link href="/admin" className={pathname.startsWith("/admin/projects") ? "" : "on"}>Posts</Link>
+          <Link href="/admin" className={pathname === "/admin" ? "on" : ""}>Overview</Link>
+          <Link href="/admin/posts" className={pathname === "/admin/posts" || pathname.startsWith("/admin/new") || pathname.startsWith("/admin/edit") ? "on" : ""}>Posts</Link>
           <Link href="/admin/projects" className={pathname.startsWith("/admin/projects") ? "on" : ""}>Projects</Link>
         </nav>
         <span>
