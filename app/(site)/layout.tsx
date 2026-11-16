@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Effects from "@/components/Effects";
-import { SITE } from "@/lib/site";
+import Link from "next/link";
+import Tracker from "@/components/Tracker";
+import { BRAND, SITE } from "@/lib/site";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -28,10 +30,11 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <img src="/images/logo.png" width={334} height={303} alt="Elite Hive Kenya" />
         </span>
         <p>We Capture. We Create. We Inform.</p>
-        <p>Kenya | Africa | The World</p>
+        <p>{BRAND.reach.map((r, i) => (<span key={r.label}>{i > 0 && " | "}<Link href={r.href}>{r.label}</Link></span>))}</p>
         <p>Elite Hive Kenya © {new Date().getFullYear()}. Nairobi, Kenya.</p>
       </footer>
       <Effects />
+      <Tracker />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
   );
