@@ -40,7 +40,7 @@ The hero video is already included at **`public/videos/hero-mobile.mp4`** (compr
 The contact form sends through Resend: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` (a sender on a domain you verified in Resend). Without them the form shows the company email address instead. All "Request a Quote" buttons open an email to elitehivekenya@gmail.com. No phone number is shown anywhere on the site.
 
 ## 7. Using the dashboard
-1. Go to `/admin` and sign in.
+1. Go to `/admin` and sign in. You land on the analytics overview; use the Posts and Projects tabs to manage content.
 2. New post: choose News or Blog, write a title and summary, upload a cover image, write the article. Toolbar: heading, bold, italic, list, link, **Add image** (uploads to Cloudinary and inserts it), Preview.
 3. Save as draft, or Publish. Published posts appear on `/newsroom`, on the home page (latest three) and in the sitemap within about a minute.
 4. The posts list lets you edit, publish or unpublish, view and delete.
@@ -49,6 +49,13 @@ The contact form sends through Resend: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CO
 In the dashboard top bar choose **Projects**, then **New project**. Fill in the title, category, optional client and YouTube link, description, a cover image and up to 12 gallery images (uploaded to Cloudinary). Save as draft or Publish. Published projects appear on `/portfolio`, as a project page at `/portfolio/<name>`, in the home page cards and in the sitemap within about a minute. A video project can use its YouTube thumbnail as the cover. The Tirus and Esther Foundation project is built into the code (`lib/projects.ts`) and always stays on the site.
 
 Article writing format: a blank line between paragraphs, `## Heading`, `**bold**`, `*italic*`, `- list item`, `[link text](https://...)`.
+
+## 7a. News categories
+Every article has a category: General News, Kenya, Africa, World, Politics, Business, Technology, Innovation, Media, Entertainment, Fashion, Lifestyle, Music, Sports, Health, Education, Science, Environment, Agriculture, Real Estate, Travel and Tourism, Food and Drink, Culture and Heritage, Automotive, Crime and Security, Opinion. Choose it in the post editor. The newsroom has filters for article type and category. The home page strip links open them: News, Media, Technology, Innovation, Kenya, Africa and The World. To add or rename a category edit `lib/categories.ts`.
+
+## 7b. Analytics dashboard (`/admin`)
+The admin home is a command center: page views, visitors, pages per visit, enquiries sent, email and quote clicks, a traffic chart (7, 30 or 90 days), devices, traffic sources, top pages, top countries, top articles and projects, the content library, auto generated highlights and a live system monitor (database, authentication, image storage, email, speed, deployment).
+Analytics are collected by the website itself (`/api/track`) into the Firestore collection `analytics_daily`: one small document per day. It is anonymous, uses no cookies and stores no personal data. Each page view is one Firestore write, which fits comfortably inside the free daily quota for a normal site. Visitors who send Do Not Track are not counted. Bots are ignored. Numbers start from the day you deploy.
 
 ## 8. Edit content
 * Business details, clients: `lib/site.ts`
