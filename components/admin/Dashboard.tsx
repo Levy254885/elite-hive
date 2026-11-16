@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useAdmin } from "./AdminShell";
 import type { Post } from "@/lib/posts";
+import { categoryLabel } from "@/lib/categories";
 
 type Row = Omit<Post, "content">;
 
@@ -58,12 +59,13 @@ export default function Dashboard() {
       {shown.length > 0 && (
         <div className="adm-scroll">
           <table className="adm-table">
-            <thead><tr><th>Title</th><th>Type</th><th>Status</th><th>Updated</th><th /></tr></thead>
+            <thead><tr><th>Title</th><th>Type</th><th>Category</th><th>Status</th><th>Updated</th><th /></tr></thead>
             <tbody>
               {shown.map((r) => (
                 <tr key={r.id}>
                   <td><Link href={`/admin/edit/${r.id}`}>{r.title}</Link></td>
                   <td>{r.type}</td>
+                  <td>{categoryLabel(r.category)}</td>
                   <td><span className={`adm-pill ${r.status}`}>{r.status}</span></td>
                   <td>{r.updatedAt.slice(0, 10)}</td>
                   <td className="adm-act">
