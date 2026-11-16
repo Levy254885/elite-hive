@@ -24,8 +24,17 @@ export const QUOTE_HREF = `mailto:${SITE.email}?subject=${encodeURIComponent("Qu
 export const BRAND = {
   headline: "Beyond Vision. Beyond Limits.",
   verbs: "We Capture. We Create. We Inform.",
-  pillars: ["News", "Media", "Technology", "Innovation"],
-  reach: ["Kenya", "Africa", "The World"],
+  pillars: [
+    { label: "News", href: "/newsroom" },
+    { label: "Media", href: "/newsroom?category=media" },
+    { label: "Technology", href: "/newsroom?category=technology" },
+    { label: "Innovation", href: "/newsroom?category=innovation" },
+  ],
+  reach: [
+    { label: "Kenya", href: "/newsroom?category=kenya" },
+    { label: "Africa", href: "/newsroom?category=africa" },
+    { label: "The World", href: "/newsroom?category=world" },
+  ],
 };
 
 export const EMAIL_HREF = `mailto:${SITE.email}`;
