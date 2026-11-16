@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { bgUrl, cld } from "@/lib/media";
+import { categoryLabel } from "@/lib/categories";
 import { listPublished, type Post } from "@/lib/posts";
 
 export const fmtDate = (iso: string | null) =>
@@ -10,7 +11,7 @@ export function NewsCard({ post }: { post: Post }) {
     <Link className="nc" href={`/newsroom/${post.slug}`}>
       <div className="nci" style={post.coverUrl ? bgUrl(cld(post.coverUrl, 800)) : { background: "linear-gradient(135deg,#2a3148,#07080c)" }} role="img" aria-label={post.title} />
       <div className="ncb">
-        <small>{post.type === "blog" ? "Blog" : "News"} <span>{fmtDate(post.publishedAt)}</span></small>
+        <small>{post.type === "blog" ? "Blog" : categoryLabel(post.category)} <span>{fmtDate(post.publishedAt)}</span></small>
         <h3>{post.title}</h3>
         {post.excerpt && <p>{post.excerpt}</p>}
       </div>
