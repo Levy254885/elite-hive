@@ -54,8 +54,8 @@ export function Hero() {
 export function TagStrip() {
   return (
     <section className="tgs" aria-label="What we do">
-      <p className="tp">{BRAND.pillars.map((p, i) => (<span key={p}>{i > 0 && <i aria-hidden> • </i>}{p}</span>))}</p>
-      <p className="tr">{BRAND.reach.map((p, i) => (<span key={p}>{i > 0 && <i aria-hidden> | </i>}{p}</span>))}</p>
+      <p className="tp">{BRAND.pillars.map((p, i) => (<span key={p.label}>{i > 0 && <i aria-hidden> • </i>}<Link href={p.href}>{p.label}</Link></span>))}</p>
+      <p className="tr">{BRAND.reach.map((p, i) => (<span key={p.label}>{i > 0 && <i aria-hidden> | </i>}<Link href={p.href}>{p.label}</Link></span>))}</p>
     </section>
   );
 }
