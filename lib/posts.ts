@@ -1,4 +1,5 @@
 import { adminDb } from "./firebase-admin";
+import { isCategory } from "./categories";
 
 export type PostType = "news" | "blog";
 export type PostStatus = "draft" | "published";
@@ -8,6 +9,7 @@ export type Post = {
   title: string;
   slug: string;
   type: PostType;
+  category: string;
   excerpt: string;
   content: string;
   coverUrl: string;
@@ -20,7 +22,7 @@ export type Post = {
   publishedAt: string | null;
 };
 
-export type PostInput = Pick<Post, "title" | "slug" | "type" | "excerpt" | "content" | "coverUrl" | "coverId" | "tags" | "author" | "status">;
+export type PostInput = Pick<Post, "title" | "slug" | "type" | "category" | "excerpt" | "content" | "coverUrl" | "coverId" | "tags" | "author" | "status">;
 
 export const slugify = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
@@ -33,6 +35,7 @@ export function parsePostInput(body: Record<string, unknown>): { error: string }
   if (title.length < 3) return { error: "Please enter a title of at least 3 characters." };
   const type: PostType = body.type === "blog" ? "blog" : "news";
   const status: PostStatus = body.status === "published" ? "published" : "draft";
+  const category = isCategory(body.category) ? body.category : "news";
   const content = str(body.content, 60000);
   if (status === "published" && content.length < 20) return { error: "Add some article content before publishing." };
   const coverUrl = str(body.coverUrl, 500);
@@ -43,6 +46,7 @@ export function parsePostInput(body: Record<string, unknown>): { error: string }
       title,
       slug: slugify(str(body.slug, 80) || title),
       type,
+      category,
       excerpt: str(body.excerpt, 300),
       content,
       coverUrl,
@@ -61,6 +65,7 @@ const toPost = (id: string, d: Record<string, any>): Post => ({
   title: d.title ?? "",
   slug: d.slug ?? id,
   type: d.type === "blog" ? "blog" : "news",
+  category: isCategory(d.category) ? d.category : "news",
   excerpt: d.excerpt ?? "",
   content: d.content ?? "",
   coverUrl: d.coverUrl ?? "",
