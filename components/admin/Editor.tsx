@@ -6,9 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import { useAdmin } from "./AdminShell";
 import { renderMarkdown } from "@/lib/markdown";
 import type { Post } from "@/lib/posts";
+import { NEWS_CATEGORIES } from "@/lib/categories";
 
-type Form = { title: string; slug: string; type: "news" | "blog"; excerpt: string; content: string; coverUrl: string; coverId: string; tags: string; author: string; status: "draft" | "published" };
-const EMPTY: Form = { title: "", slug: "", type: "news", excerpt: "", content: "", coverUrl: "", coverId: "", tags: "", author: "Elite Hive Kenya", status: "draft" };
+type Form = { title: string; slug: string; type: "news" | "blog"; category: string; excerpt: string; content: string; coverUrl: string; coverId: string; tags: string; author: string; status: "draft" | "published" };
+const EMPTY: Form = { title: "", slug: "", type: "news", category: "news", excerpt: "", content: "", coverUrl: "", coverId: "", tags: "", author: "Elite Hive Kenya", status: "draft" };
 
 /** Shrinks large photos in the browser so uploads stay small and fast. */
 async function prepare(file: File): Promise<File> {
@@ -47,7 +48,7 @@ export default function Editor({ id }: { id?: string }) {
       if (!res.ok || !json.post) setMsg({ text: json.message ?? "Could not load this post." });
       else {
         const p = json.post;
-        setF({ title: p.title, slug: p.slug, type: p.type, excerpt: p.excerpt, content: p.content, coverUrl: p.coverUrl, coverId: p.coverId, tags: p.tags.join(", "), author: p.author, status: p.status });
+        setF({ title: p.title, slug: p.slug, type: p.type, category: p.category, excerpt: p.excerpt, content: p.content, coverUrl: p.coverUrl, coverId: p.coverId, tags: p.tags.join(", "), author: p.author, status: p.status });
       }
       setLoading(false);
     })();
@@ -108,7 +109,7 @@ export default function Editor({ id }: { id?: string }) {
     const json = (await res.json().catch(() => ({}))) as { message?: string };
     setBusy("");
     if (!res.ok) return setMsg({ text: json.message ?? "Could not save." });
-    router.push("/admin");
+    router.push("/admin/posts");
   }
 
   if (loading) return <p>Loading post...</p>;
@@ -117,12 +118,13 @@ export default function Editor({ id }: { id?: string }) {
     <>
       <div className="adm-head">
         <h1>{id ? "Edit post" : "New post"}</h1>
-        <Link className="adm-link" href="/admin">Back to posts</Link>
+        <Link className="adm-link" href="/admin/posts">Back to posts</Link>
       </div>
       <div className="adm-form">
         <label>Title<input value={f.title} maxLength={160} onChange={(e) => set("title", e.target.value)} /></label>
         <div className="adm-row">
           <label>Type<select value={f.type} onChange={(e) => set("type", e.target.value as Form["type"])}><option value="news">News</option><option value="blog">Blog</option></select></label>
+          <label>Category<select value={f.category} onChange={(e) => set("category", e.target.value)}>{NEWS_CATEGORIES.map((c) => (<option key={c.slug} value={c.slug}>{c.label}</option>))}</select></label>
           <label>Author<input value={f.author} maxLength={80} onChange={(e) => set("author", e.target.value)} /></label>
         </div>
         <label>Short summary (shown on cards and in Google)<textarea rows={2} maxLength={300} value={f.excerpt} onChange={(e) => set("excerpt", e.target.value)} /></label>
