@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { adminDb } from "@/lib/firebase-admin";
+import { recordEvent } from "@/lib/analytics";
 
 export const runtime = "nodejs";
 
@@ -37,6 +39,8 @@ export async function POST(req: Request) {
       console.error("Resend error", res.status, await res.text());
       return NextResponse.json({ message: "We could not send your message right now." }, { status: 502 });
     }
+    const db = adminDb();
+    if (db) await recordEvent(db, "contact_form").catch(() => undefined);
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Contact form error", err);
