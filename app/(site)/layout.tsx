@@ -31,7 +31,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         </span>
         <p>We Capture. We Create. We Inform.</p>
         <p>{BRAND.reach.map((r, i) => (<span key={r.label}>{i > 0 && " | "}<Link href={r.href}>{r.label}</Link></span>))}</p>
-        <p>Elite Hive Kenya © {new Date().getFullYear()}. Nairobi, Kenya.</p>
+        <p><Link href="/terms">Terms of Use</Link> | <Link href="/terms#part-b-privacy-policy">Privacy Policy</Link></p>
+        <p>© {new Date().getFullYear()} Elite Hive Kenya Ltd. All Rights Reserved. Nairobi, Kenya.</p>
       </footer>
       <Effects />
       <Tracker />
