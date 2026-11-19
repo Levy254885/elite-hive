@@ -6,7 +6,7 @@ import { listPublished } from "@/lib/posts";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const routes = ["", "/about", "/services", "/portfolio", "/newsroom", "/clients", "/contact"];
+  const routes = ["", "/about", "/services", "/portfolio", "/newsroom", "/clients", "/contact", "/terms"];
   const posts = await listPublished(500);
   const projects = await allProjects();
   return [
