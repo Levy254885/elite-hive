@@ -5,6 +5,7 @@ import { CtaBand, PageHead } from "@/components/Sections";
 import { fmtDate, NewsCard } from "@/components/Newsroom";
 import { cld } from "@/lib/media";
 import { renderMarkdown } from "@/lib/markdown";
+import { tagHref } from "@/lib/tags";
 import { getPublishedBySlug, listPublished } from "@/lib/posts";
 import { SITE } from "@/lib/site";
 
@@ -49,7 +50,7 @@ export default async function ArticlePage({ params }: Params) {
           <img className="art-cover" src={cld(p.coverUrl, 1400)} alt={p.title} />
         )}
         <div className="prose" dangerouslySetInnerHTML={{ __html: renderMarkdown(p.content) }} />
-        {p.tags.length > 0 && <p className="tags">{p.tags.map((t) => (<span key={t}>{t}</span>))}</p>}
+        {p.tags.length > 0 && <p className="tags" aria-label="Tags">{p.tags.map((t) => (<Link key={t} href={tagHref(t)}>#{t}</Link>))}</p>}
         <p><Link href="/newsroom">Back to the newsroom</Link></p>
       </article>
       {more.length > 0 && (
