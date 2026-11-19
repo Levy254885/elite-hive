@@ -128,7 +128,7 @@ export default function Editor({ id }: { id?: string }) {
           <label>Author<input value={f.author} maxLength={80} onChange={(e) => set("author", e.target.value)} /></label>
         </div>
         <label>Short summary (shown on cards and in Google)<textarea rows={2} maxLength={300} value={f.excerpt} onChange={(e) => set("excerpt", e.target.value)} /></label>
-        <label>Tags (separate with commas)<input value={f.tags} onChange={(e) => set("tags", e.target.value)} /></label>
+        <label>Tags (separate with commas, each one becomes a clickable link on the article)<input value={f.tags} onChange={(e) => set("tags", e.target.value)} /></label>
         <label>Web address ending (optional, made from the title if empty)<input value={f.slug} maxLength={80} onChange={(e) => set("slug", e.target.value)} /></label>
 
         <div className="adm-cover">
