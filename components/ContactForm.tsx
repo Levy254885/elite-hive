@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { SITE } from "@/lib/site";
 
 type State = { s: "idle" | "loading" | "ok" | "err"; msg?: string; fallback?: boolean };
@@ -38,6 +39,7 @@ export default function ContactForm() {
       <input name="name" placeholder="Name" required minLength={2} maxLength={100} autoComplete="name" aria-label="Name" />
       <input name="email" type="email" placeholder="Email" required maxLength={150} autoComplete="email" aria-label="Email" />
       <textarea name="message" placeholder="Message" required minLength={10} maxLength={3000} aria-label="Message" />
+      <label className="consent"><input name="consent" type="checkbox" required /><span>I have read the <Link href="/terms" target="_blank">Terms of Use</Link> and <Link href="/terms#part-b-privacy-policy" target="_blank">Privacy Policy</Link> and agree that Elite Hive Kenya Ltd may use my details to respond to this enquiry.</span></label>
       <div className="hidden" aria-hidden style={{ display: "none" }}>
         <input name="website" tabIndex={-1} autoComplete="off" />
       </div>
