@@ -19,6 +19,7 @@ export async function POST(req: Request) {
   const name = clean(body.name, 100);
   const email = clean(body.email, 150);
   const message = clean(body.message, 3000);
+  if (!body.consent) return NextResponse.json({ message: "Please tick the box to agree to the Terms of Use and Privacy Policy." }, { status: 400 });
   if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || message.length < 10) {
     return NextResponse.json({ message: "Please enter your name, a valid email and a message of at least 10 characters." }, { status: 400 });
   }
